@@ -1,0 +1,56 @@
+<app-form (forecastReceived)="storeForecast($event)" 
+        (submitConfirmed)="storeStatus($event)" 
+        (cityAndState)="storeTitle($event)"
+        (sendLat)="setLat($event)"
+        (sendLng)="setLng($event)"
+        (clearData)="clear($event)"></app-form>
+<app-progressbar *ngIf="inProgress == true"></app-progressbar>
+
+
+
+<div style="margin-left:45%; margin-top: 20px;">
+        <app-result-button (showTable)="setClickedLink($event)"
+                (setButton)="toggleButton($event)"
+                [buttonClick]="activeButton"></app-result-button>
+        <app-favorite-button (clickLink)="setClickedLink($event)"
+                (setButton)="toggleButton($event)"
+                [buttonClick]="activeButton"></app-favorite-button>
+</div>
+
+<div style="width: 100%; height: auto;">
+        <app-favorite-city *ngIf="receivedData && clickedLink == 0" [storedCity]="{forecastFive : forecastFive, forecastFif : forecastFif}" 
+                        [location]="{city : city, state : state}"
+                        [cord]="{lat : forecastlat, lng : forecastlng}"
+                        (direct)="directTable($event)"></app-favorite-city>
+ 
+        <app-title *ngIf="receivedData && clickedLink == 0"
+                [title]="forecastLoc"></app-title>
+
+        <app-navigation *ngIf="receivedData && clickedLink != 3 && clickedLink != 4" (clickedLinks)="setClickedLink($event)"></app-navigation>
+
+        <app-table *ngIf="(clickedLink == 0 && receivedData && forecastFif.length != 0) "
+                [forecastFiveDays]="forecastFive"
+                [forecastFifteenDays]="forecastFif"
+                [dateString]="dateList"
+                [path]="urls"
+                (clickedRow)="setClickedRow($event)"></app-table>
+
+        <app-title *ngIf="receivedData && clickedLink == 3"
+                [title]="dateInfo"></app-title>
+        <app-detail-table  *ngIf ="clickedLink == 3" [selected]="forecastFif[selectedRow]" 
+                                [status]="urls[selectedRow][0]"
+                                [latitude]="forecastlat"
+                                [longitude]="forecastlng"
+                                [tweetInfo]="{
+                                        city : city, 
+                                        state: state, 
+                                        date : dateList[selectedRow]}"
+                                (setTable)="setClickedLink($event)"></app-detail-table>
+        <app-chart  *ngIf="clickedLink == 1" [forecastFif]="forecastFif"></app-chart>
+        <app-detail-chart *ngIf="clickedLink == 2" [forecast]="forecastFive"></app-detail-chart>
+                        
+        <app-favorite-list *ngIf="clickedLink == 4" 
+                        (retrivedLocalData)= "getDataFromFavorite($event)"
+                        (clickLink)="setClickedLink($event)"></app-favorite-list>
+
+

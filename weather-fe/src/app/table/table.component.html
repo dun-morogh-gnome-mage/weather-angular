@@ -1,0 +1,24 @@
+<div  class="container table-responsive-sm table-responsive-md table-responsive-lg" style="width:100%">
+    <table class="table widget-table table-hover">
+        <thead>
+            <tr class="row">
+                <th class="col-lg-1 col-md-1 col-sm-1">#</th>
+                <th class="col-lg-3 col-md-3 col-sm-3">Date</th>
+                <th class="col-lg-2 col-md-2 col-sm-2">Status</th>
+                <th class="col-lg-2 col-md-2 col-sm-2">Temp.High(&deg; F)</th>
+                <th class="col-lg-2 col-md-2 col-sm-2">Temp.Low(&deg; F)</th>
+                <th class="col-lg-2 col-md-2 col-sm-2">Wind Speed（mph)</th>
+            </tr>
+        </thead>
+        <tbody>    
+            <tr *ngFor="let f of forecastFifteenDays; let i = index" scope="row" class="row" >
+                <td class="col-lg-1 col-md-1 col-sm-1"><b>{{i+1}}</b></td>
+                <td class="col-lg-3 col-md-3 col-sm-3"><a (click)="selectSpec(i)" style="color:blue;text-decoration: underline;cursor: pointer;">{{dateString[i]}}</a></td>
+                <td class="col-lg-2 col-md-2 col-sm-2"><img src={{path[i][1]}} width=50 heigth=50>{{path[i][0]}}</td>
+                <td class="col-lg-2 col-md-2 col-sm-2">{{f.temperatureMax}}</td>
+                <td class="col-lg-2 col-md-2 col-sm-2">{{f.temperatureMin}}</td>
+                <td class="col-lg-2 col-md-2 col-sm-2">{{f.windSpeed}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

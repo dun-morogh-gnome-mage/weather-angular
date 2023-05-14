@@ -1,0 +1,20 @@
+.button-gap{
+    display: inline-block;
+    width:20px;
+    height:auto;
+}
+.widget-form {
+    width:60%; 
+    margin:auto; 
+    background-color:#f4f4f4;
+}
+.red-border {
+    border: 1px solid red;
+}
+
+
+
+.control-label:after {
+  content:"*";
+  color:red;
+}
