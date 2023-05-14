@@ -1,11 +1,11 @@
 const URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?";
-const API = "AIzaSyCF-ApUa_YU-7nGr6ZIWZxddO8s-GHMZr0";
+
 
 const axios = require("axios");
 
 async function getAutocomplete(input) {
     const predictions = await axios.get(
-      `${URL}input=${input}&types=(cities)&key=${API}`
+      `${URL}input=${input}&types=(cities)&key=${process.env.KEY}`
     );
     const results = [];
     const cities = [];
